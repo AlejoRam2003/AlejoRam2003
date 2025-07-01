@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ recipe.name }}{% endblock %}
+
+{% block content %}
+  <h1>{{ recipe.name }}</h1>
+  {% if recipe.image_url %}
+    <img src="{{ recipe.image_url }}" alt="{{ recipe.name }}" style="max-width: 400px; height: auto;">
+  {% endif %}
+
+  <h2>Ingredients:</h2>
+  <ul>
+    {% for ingredient in recipe.ingredients.split('\n') %}
+      {% if ingredient.strip() %}
+        <li>{{ ingredient.strip() }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <h2>Instructions:</h2>
+  <p>{{ recipe.instructions | nl2br }}</p>
+
+  <a href="{{ url_for('index') }}">Back to all recipes</a>
+{% endblock %}
